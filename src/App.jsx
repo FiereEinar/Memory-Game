@@ -1,9 +1,11 @@
-'use client'
-
 import React, { useState, useEffect } from 'react'
+import PokemonCard from './components/PokemonCard.jsx'
+
+import mainBg from './assets/images (39).jpeg'
 
 export default function App() {
   const [pokemonData, setPokemonData] = useState([])
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     const fetchData = async () => {
@@ -16,23 +18,32 @@ export default function App() {
         
         setPokemonData([ ...pokemonArray, data])
         pokemonArray.push(data);
+        if (pokemonArray.length === 20) setLoading(false)
       })
     }
     fetchData()
   }, [])
-  
+  const hide = false
   return (
     <>
-      {pokemonData.length !== 0 && 
-      <div>
-        {pokemonData.map((data) => (
-          <div key={data.id}>
-            <p>{data.name} {data.order}</p>
-            <img src={data.sprites.front_default} className='w-20 h-20'/>
+      {loading ? (
+        <div className='text-white w-full h-full flex justify-center pt-20'>
+          <p className='text-4xl'>Loading Pokemons...</p>
+        </div>
+      ) : (
+        <>
+          <div className='flex flex-wrap gap-2'>
+            {pokemonData.map((data) => (
+              <PokemonCard 
+                imgURL={data.sprites.front_default}
+                name={data.name}
+                key={data.id}
+                hide={hide}
+              />
+            ))}
           </div>
-        ))}
-      </div>
-      }
+        </>
+      )}
     </>
   )
 }
