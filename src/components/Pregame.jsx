@@ -4,7 +4,7 @@ export default function Pregame({ onStart, setDifficulty, currentDifficulty }) {
   return (
     <section className='min-h-screen w-full grid place-items-center border
     text-white'>
-      <div className='backdrop-blur-sm bg-white/20 p-5 rounded'>
+      <div className='backdrop-blur-sm bg-white/20 p-5 rounded shadow-2xl'>
         <div className='flex flex-col items-center gap-3'>
           <p className='text-2xl'>Select a difficulty</p>
           <p>Current Difficulty: {currentDifficulty}</p>

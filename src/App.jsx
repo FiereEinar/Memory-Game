@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import PokemonCard from './components/PokemonCard.jsx'
 import Loading from './components/Loading.jsx'
 import Pregame from './components/Pregame.jsx'
+import Header from './components/Header.jsx'
+import Main from './components/Main.jsx'
 
 import mainBg from './assets/images (39).jpeg'
 
@@ -10,6 +11,8 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [gameStatus, setGameStatus] = useState('pregame')
   const [difficulty, setDifficulty] = useState('easy')
+  const [score, setScore] = useState({ current: 0, highest: 0 })
+  const [cards, setCards] = useState([])
   
   useEffect(() => {
     const fetchData = async () => {
@@ -18,8 +21,7 @@ export default function App() {
         "jigglypuff", "snorlax", "gengar",
         "mewtwo", "squirtle", "eevee",
         "magikarp", "dragonite", "machamp",
-        "vaporeon", "alakazam", "gyarados",
-        "meowth", "lapras", "arcanine", "mew", "ditto"
+        "vaporeon", "alakazam", "gyarados"
       ]
       const pokemonArray = [];
       
@@ -31,11 +33,40 @@ export default function App() {
         
         setPokemonData([ ...pokemonArray, data])
         pokemonArray.push(data);
-        if (pokemonArray.length === 20) setLoading(false)
+        if (pokemonArray.length === pokemonNames.length) setLoading(false)
       })
     }
     fetchData()
   }, [])
+  
+  
+  
+  const getAmount = (mode) => {
+    switch(mode) {
+      case 'easy':
+        return 4
+      case 'medium':
+        return 5
+      case 'hard':
+        return 6
+    }
+  }
+  
+  const getRandomCard = () => {
+    const cardAmount = getAmount(difficulty)
+    const cardArray = []
+    const taken = []
+    
+    while (cardArray.length !== cardAmount) {
+      const num = Math.floor(Math.random() * 15)
+      
+      if (!taken.includes(num)) {
+        cardArray.push(pokemonData[num])
+        taken.push(num)
+      }
+    }
+    setCards([ ...cardArray ])
+  }
   
   const handleSetDifficulty = (e) => {
     const { mode } = e.target.dataset
@@ -44,6 +75,11 @@ export default function App() {
   
   const startGameHandler = () => {
     setGameStatus('start')
+    getRandomCard()
+  }
+  
+  const handleCardClick = (e) => {
+    
   }
   
   return (
@@ -58,17 +94,18 @@ export default function App() {
         />
       ) : gameStatus === 'start' ? (
         <>
-          <div className='flex flex-wrap gap-2'>
-            {pokemonData.map((data) => (
-              <PokemonCard 
-                imgURL={data.sprites.front_default}
-                name={data.name}
-                key={data.id}
-              />
-            ))}
-          </div>
+          <Header
+            score={score.current}
+            highestScore={score.highest}
+          />
+          <Main 
+            pokemonData={cards}
+            difficulty={difficulty}
+          />
         </>
-      ) : (null)}
+      ) : (
+        <p>Something unexpected happened. Please resart the game.</p>  
+      )}
     </>
   )
 }
