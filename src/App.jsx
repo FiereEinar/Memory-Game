@@ -3,6 +3,7 @@ import Loading from './components/Loading.jsx'
 import Pregame from './components/Pregame.jsx'
 import Header from './components/Header.jsx'
 import Main from './components/Main.jsx'
+import Loser from './components/Loser.jsx'
 
 import mainBg from './assets/images (39).jpeg'
 
@@ -13,7 +14,6 @@ export default function App() {
   const [difficulty, setDifficulty] = useState('easy')
   const [score, setScore] = useState({ current: 0, highest: 0 })
   const [cards, setCards] = useState([])
-  
   const [clickedCardNames, setClickedCardNames] = useState([])
   
   useEffect(() => {
@@ -102,8 +102,17 @@ export default function App() {
       incrementScore(1)
       getRandomCard()
     } else {
-      //setGameStatus('gameover')
+      setGameStatus('loser')
     }
+  }
+  
+  const restartGameHandler = () => {
+    setScore({
+      current: 0,
+      highest: score.highest
+    })
+    setGameStatus('pregame')
+    setClickedCardNames([])
   }
   
   return (
@@ -126,6 +135,16 @@ export default function App() {
             cardClick={handleCardClick}
             pokemonData={cards}
             difficulty={difficulty}
+          />
+        </>
+      ) : gameStatus === 'loser' ? (
+        <>
+          <Header
+            score={score.current}
+            highestScore={score.highest}
+          />
+          <Loser
+            restart={restartGameHandler}
           />
         </>
       ) : (
