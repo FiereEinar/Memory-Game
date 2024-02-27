@@ -14,6 +14,8 @@ export default function App() {
   const [score, setScore] = useState({ current: 0, highest: 0 })
   const [cards, setCards] = useState([])
   
+  const [clickedCardNames, setClickedCardNames] = useState([])
+  
   useEffect(() => {
     const fetchData = async () => {
       const pokemonNames = [
@@ -78,8 +80,30 @@ export default function App() {
     getRandomCard()
   }
   
+  const incrementScore = (amount) => {
+    if (score.current + amount > score.highest) {
+      setScore({ 
+        current: score.current + amount, 
+        highest: score.current + amount 
+      })
+    } else {
+      setScore({ 
+        current: score.current + amount, 
+        highest: score.highest 
+      })
+    }
+  }
+  
   const handleCardClick = (e) => {
+    const { name } = e.target.dataset
     
+    if (!clickedCardNames.includes(name)) {
+      setClickedCardNames([ ...clickedCardNames, name ])
+      incrementScore(1)
+      getRandomCard()
+    } else {
+      //setGameStatus('gameover')
+    }
   }
   
   return (
@@ -99,6 +123,7 @@ export default function App() {
             highestScore={score.highest}
           />
           <Main 
+            cardClick={handleCardClick}
             pokemonData={cards}
             difficulty={difficulty}
           />
