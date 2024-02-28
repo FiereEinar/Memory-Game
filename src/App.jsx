@@ -15,6 +15,7 @@ export default function App() {
   const [score, setScore] = useState({ current: 0, highest: 0 })
   const [cards, setCards] = useState([])
   const [clickedCardNames, setClickedCardNames] = useState([])
+  const [cardFlipped, setCardFlipped] = useState(false)
   
   useEffect(() => {
     const fetchData = async () => {
@@ -96,14 +97,22 @@ export default function App() {
   
   const handleCardClick = (e) => {
     const { name } = e.target.dataset
+    setCardFlipped(prev => !prev)
     
-    if (!clickedCardNames.includes(name)) {
-      setClickedCardNames([ ...clickedCardNames, name ])
-      incrementScore(1)
-      getRandomCard()
-    } else {
-      setGameStatus('loser')
-    }
+    setTimeout(() => {
+      if (!clickedCardNames.includes(name)) {
+        setClickedCardNames([ ...clickedCardNames, name ])
+        incrementScore(1)
+        getRandomCard()
+      } else {
+        setGameStatus('loser')
+      }
+      
+    }, 1000)
+    
+    setTimeout(() => {
+      setCardFlipped(prev => !prev)
+    }, 1500)
   }
   
   const restartGameHandler = () => {
@@ -132,6 +141,7 @@ export default function App() {
             highestScore={score.highest}
           />
           <Main 
+            isFlipped={cardFlipped}
             cardClick={handleCardClick}
             pokemonData={cards}
             difficulty={difficulty}
