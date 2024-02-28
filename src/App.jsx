@@ -5,8 +5,6 @@ import Header from './components/Header.jsx'
 import Main from './components/Main.jsx'
 import Loser from './components/Loser.jsx'
 
-import mainBg from './assets/images (39).jpeg'
-
 export default function App() {
   const [pokemonData, setPokemonData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,8 +39,6 @@ export default function App() {
     }
     fetchData()
   }, [])
-  
-  
   
   const getAmount = (mode) => {
     switch(mode) {

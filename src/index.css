@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 body {
-  background-image: url('./assets/images (39).jpeg');
+  background-image: url('/images (39).jpeg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+#root {
+  min-height: 100vh;
 }
  
 @layer base {

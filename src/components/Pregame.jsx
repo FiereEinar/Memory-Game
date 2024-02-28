@@ -2,7 +2,7 @@ export default function Pregame({ onStart, setDifficulty, currentDifficulty }) {
   const difficulties = ['easy', 'medium', 'hard']
   
   return (
-    <section className='min-h-screen w-full grid place-items-center border
+    <section className='min-h-screen w-full grid place-items-center
     text-white'>
       <div className='backdrop-blur-sm bg-white/20 p-5 rounded shadow-2xl'>
         <div className='flex flex-col items-center gap-3'>

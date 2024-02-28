@@ -11,7 +11,9 @@ export default function Header({ score, highestScore }) {
     <header className=' text-white flex flex-col items-center
     gap-3 p-5'>
       <div className='flex text-4xl gap-5'>
-        <h1 className='text-5xl'>Memory Game</h1>
+        <h1 className='text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text font-bold'>
+          Memory Game
+        </h1>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>?</TooltipTrigger>
@@ -21,7 +23,7 @@ export default function Header({ score, highestScore }) {
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className='text-2xl'>
+      <div className='text-2xl flex gap-5'>
         <p>Current Score: {score}</p>
         <p>Highest Score: {highestScore}</p>
       </div>
