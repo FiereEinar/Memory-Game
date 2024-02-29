@@ -1,8 +1,13 @@
-# React + Vite
+# Memory Game
+Memory Game is a game that tests your memory. The player's main goal is to NOT click the same card teice or else the game is over.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **Pupose**
+This project was made to practice react, specifically practicing the use of useEffect and fetching data from an API. Aling side that I also learned how to use a component library as well as components from react itself.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Getting Started**
+```bash
+git clone https://github.com/FiereEinar/Memory-Game.git
+cd Memory-Game
+npm install
+npm run dev
+```

@@ -8,9 +8,6 @@ export default function PokemonCard({ imgURL, name, cardClick, isFlipped }) {
 
   return (
     <ReactCardFlip 
-    //containerStyle={
-      //{backdropFilter: 'blur(4px)'}
-    //}
     isFlipped={isFlipped}
     flipDirection='horizontal'
     >
